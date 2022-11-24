@@ -17,4 +17,9 @@ export const state = () => ({
     { id: 15, title: "Fanta Susu", thumbnail: "fanta-susu.jpg", price: 8000, categoryId: 2 },
     { id: 16, title: "Air Mineral", thumbnail: "air-mineral.jpg", price: 3000, categoryId: 2 }
   ],
+  categories: [
+    { id: false, title: "All" },
+    { id: 1, title: "Makanan" },
+    { id: 2, title: "Minuman" }
+  ],
 });

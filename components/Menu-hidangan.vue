@@ -62,11 +62,6 @@ export default ({
   data() {
     return {
       categoryId: false,
-      categories: [
-        { id: false, title: "All" },
-        { id: 1, title: "Makanan" },
-        { id: 2, title: "Minuman" }
-      ],
       search: null,
       isLoading: false,
       itemSearch: [],
@@ -86,7 +81,8 @@ export default ({
 
     // memanggil state data_menu pada store
     ...mapState('menus', {
-      data_menu: 'data_menu'
+      data_menu: 'data_menu',
+      categories: 'categories'
     })
   },
   watch: {
