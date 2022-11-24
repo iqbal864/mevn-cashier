@@ -15,9 +15,9 @@
           </template>
 
           <v-list>
-            <v-list-item-group v-model="categoryId">
+            <v-list-item-group>
               <v-list-item v-for="(category, index) in categories" :key="index" :value="category.id"
-                :disabled="category.id == categoryId">
+                :disabled="category.id == categoryId" @change="updateCategoryId(category.id)">
                 <v-list-item-title>
                   {{ category.title }}
                 </v-list-item-title>
@@ -51,21 +51,23 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default ({
-  methods: {
-    resetSearchByCategory() {
-      this.categoryId = false;
-    }
-  },
   data() {
     return {
-      categoryId: false,
       search: null,
       isLoading: false,
       itemSearch: [],
       selectedSearch: null
+    }
+  },
+  methods: {
+    ...mapActions('menus', {
+      updateCategoryId: 'updateCategoryId'
+    }),
+    resetSearchByCategory() {
+      this.updateCategoryId(0);
     }
   },
   computed: {
@@ -82,7 +84,8 @@ export default ({
     // memanggil state data_menu pada store
     ...mapState('menus', {
       data_menu: 'data_menu',
-      categories: 'categories'
+      categories: 'categories',
+      categoryId: 'categoryId'
     })
   },
   watch: {

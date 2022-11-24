@@ -22,4 +22,17 @@ export const state = () => ({
     { id: 1, title: "Makanan" },
     { id: 2, title: "Minuman" }
   ],
+  categoryId: 0,
 });
+
+export const mutations = {
+  updateCategoryId(state, value_categoryId) {
+    state.categoryId = value_categoryId;
+  }
+}
+
+export const actions = {
+  updateCategoryId({ commit }, value_categoryId) {
+    commit('updateCategoryId', value_categoryId);
+  }
+}
