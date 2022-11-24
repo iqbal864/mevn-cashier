@@ -33,7 +33,7 @@
       <v-col lg="2" md="3" sm="4" xs="6" v-for="(menu, index) in filteredMenus" :key="index">
         <v-tooltip top open-delay="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-card :ripple="true" class="menu_card" v-bind="attrs" v-on="on">
+            <v-card :ripple="true" class="menu_card" v-bind="attrs" v-on="on" @click="addToCart(menu.id)">
               <v-card-actions>
                 <v-img :src="require(`@/assets/images/menu/convert/${menu.thumbnail}`)"></v-img>
               </v-card-actions>
@@ -63,8 +63,9 @@ export default ({
     }
   },
   methods: {
-    ...mapActions('menus', {
-      updateCategoryId: 'updateCategoryId'
+    ...mapActions({
+      updateCategoryId: 'menus/updateCategoryId',
+      addToCart: 'carts/addToCart'
     }),
     resetSearchByCategory() {
       this.updateCategoryId(0);
