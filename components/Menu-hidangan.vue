@@ -9,9 +9,7 @@
       <v-col cols="2" align="right">
         <v-menu>
           <template v-slot:activator="{ on: category }">
-            <v-btn v-on="category" color="primary">
-              Category
-            </v-btn>
+            <v-btn v-on="category" color="primary"> Category </v-btn>
           </template>
 
           <v-list>
@@ -24,7 +22,6 @@
               </v-list-item>
             </v-list-item-group>
           </v-list>
-
         </v-menu>
       </v-col>
     </v-row>
@@ -35,7 +32,9 @@
           <template v-slot:activator="{ on, attrs }">
             <v-card :ripple="true" class="menu_card" v-bind="attrs" v-on="on" @click="addToCart(menu.id)">
               <v-card-actions>
-                <v-img :src="require(`@/assets/images/menu/convert/${menu.thumbnail}`)"></v-img>
+                <v-img :src="
+                  require(`@/assets/images/menu/convert/${menu.thumbnail}`)
+                "></v-img>
               </v-card-actions>
               <v-card-text align="center" class="menu_title">
                 {{ menu.title }}
@@ -50,35 +49,38 @@
 </template>
 
 <script>
-
 import { mapState, mapMutations, mapActions } from 'vuex'
 
-export default ({
+export default {
   data() {
     return {
       search: null,
       isLoading: false,
       itemSearch: [],
-      selectedSearch: null
+      selectedSearch: null,
     }
   },
   methods: {
     ...mapActions({
       updateCategoryId: 'menus/updateCategoryId',
-      addToCart: 'carts/addToCart'
+      addToCart: 'carts/addToCart',
     }),
     resetSearchByCategory() {
-      this.updateCategoryId(0);
-    }
+      this.updateCategoryId(0)
+    },
   },
   computed: {
     filteredMenus() {
       if (this.categoryId) {
-        return this.data_menu.filter(search => search.categoryId == this.categoryId);
+        return this.data_menu.filter(
+          (search) => search.categoryId == this.categoryId
+        )
       } else if (this.selectedSearch) {
-        return this.data_menu.filter(search => search.title == this.selectedSearch.title);
+        return this.data_menu.filter(
+          (search) => search.title == this.selectedSearch.title
+        )
       } else {
-        return this.data_menu;
+        return this.data_menu
       }
     },
 
@@ -86,24 +88,23 @@ export default ({
     ...mapState('menus', {
       data_menu: 'data_menu',
       categories: 'categories',
-      categoryId: 'categoryId'
-    })
+      categoryId: 'categoryId',
+    }),
   },
   watch: {
     search(value) {
       // console.log(value);
-      this.isLoading = true;
+      this.isLoading = true
       setTimeout(() => {
-        this.itemSearch = this.data_menu.filter(item => {
-          this.isLoading = false;
-          this.resetSearchByCategory();
-          return item.title;
-        });
+        this.itemSearch = this.data_menu.filter((item) => {
+          this.isLoading = false
+          this.resetSearchByCategory()
+          return item.title
+        })
       }, 1000)
-    }
-  }
-})
-
+    },
+  },
+}
 </script>
 
 

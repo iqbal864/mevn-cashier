@@ -4,10 +4,7 @@
       <menu-hidangan></menu-hidangan>
     </v-col>
     <v-col cols="4" class="frame_content px-6">
-      ORDER
       <order></order>
     </v-col>
   </v-row>
 </template>
-
-
