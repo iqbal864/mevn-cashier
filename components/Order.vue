@@ -34,6 +34,47 @@
             <v-list-item-title>{{ currency(subTotal) }}</v-list-item-title>
           </v-list-item-action>
         </v-list-item>
+
+        <v-list-group v-if="cartItems.length">
+          <template v-slot:activator value="false">
+            <v-list-item-content class="text-h6">
+              <v-list-item-title>
+                Additionals
+              </v-list-item-title>
+            </v-list-item-content>
+          </template>
+          <template>
+            <v-list-item disabled v-for="(additional, index) in additionals" :key="index">
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ additional.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle v-if="additional.mode == 'percentage'">
+                  {{ additional.value }}%
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-list-item-title v-if="additional.mode == 'fix'">
+                  {{ currency(additional.value) }}
+                </v-list-item-title>
+                <v-list-item-title v-else-if="additional.mode == 'percentage'">
+                  {{ currency(calculation(additional.value)) }}
+                </v-list-item-title>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+        </v-list-group>
+
+        <!-- total -->
+        <v-list-item v-if="cartItems.length" class="text-h6 text-bold primary" dark>
+          <v-list-item-content>
+            <v-list-item-title>Total</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-list-item-title>{{ currency(total) }}</v-list-item-title>
+          </v-list-item-action>
+        </v-list-item>
+
       </v-list>
     </v-col>
   </v-row>
@@ -56,12 +97,15 @@ export default {
   },
   computed: {
     ...mapState('carts', {
-      items: 'items'
+      items: 'items',
+      additionals: 'additionals'
     }),
     ...mapGetters('carts', {
       cartItems: 'cartItems',
       itemTotal: 'itemTotal',
-      subTotal: 'subTotal'
+      subTotal: 'subTotal',
+      calculation: 'calculation',
+      total: 'total'
     })
   }
 }
